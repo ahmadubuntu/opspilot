@@ -211,6 +211,33 @@ After dry-run, Policy may be evaluated again using preview information.
 
 A dry-run result does not itself authorize execution.
 
+## Dry-Run and Approval Sequencing
+
+Contracts v1 returns one primary Policy decision at a time.
+
+An operation that requires both dry-run and human Approval follows this sequence:
+
+```text
+REQUIRE_DRY_RUN
+    |
+    v
+Dry-run execution
+    |
+    v
+Preview validation and Audit
+    |
+    v
+Policy re-evaluation
+    |
+    v
+REQUIRE_APPROVAL
+
+Policy does not return simultaneous REQUIRE_DRY_RUN and REQUIRE_APPROVAL primary decisions.
+
+Dry-run does not authorize mutation.
+
+Mutation may proceed only after the subsequent Policy evaluation and required Approval succeed.
+
 ## Fail Closed
 
 Policy always fails closed.
