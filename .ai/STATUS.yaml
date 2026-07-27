@@ -1,35 +1,105 @@
-project: OpsPilot
+project:
+name: OpsPilot
+version: 0.1.0
+phase: "Phase 1.5 - Architecture Governance"
 
-version: 0.1.0-alpha
+repository:
+default_branch: main
+current_work_branch: docs/spec-baseline-v1
 
-phase: bootstrap
+architecture:
+status: accepted
 
-runtime: bootstrap
+contracts:
+version: v1
 
-plugin_loader: not_started
+specifications:
 
-filesystem_plugin: not_started
+```
+tool:
+  status: accepted
 
-terminal_plugin: not_started
+plugin:
+  status: accepted
 
-git_plugin: not_started
+policy:
+  status: accepted
 
-docker_plugin: not_started
+approval:
+  status: accepted
 
-completed:
+audit:
+  status: accepted
 
-  - repository
+workspace:
+  status: accepted
 
-  - docker
+transport:
+  status: accepted
 
-  - open_webui
+session:
+  status: accepted
 
-  - lm_studio
+runtime_execution:
+  status: accepted
+```
 
-  - python_package
+governance:
 
-  - cli
+spec_index: true
 
-next:
+traceability: true
 
-  - python_runtime
+adr_index: true
+
+architecture_reviews: true
+
+current_vertical_slice:
+
+implemented: false
+
+scope:
+
+```
+- filesystem.read_file
+- filesystem.list_directory
+- filesystem.stat
+```
+
+phase2:
+
+status: not_started
+
+first_targets:
+
+```
+- core/errors.py
+- core/models.py
+- runtime/context.py
+- runtime/dispatcher.py
+- runtime/kernel.py
+```
+
+validation:
+
+pytest: passing
+
+ruff: passing
+
+mypy: passing
+
+next_branch:
+
+feature/runtime-kernel-v1
+
+next_milestone:
+
+Runtime Execution Kernel
+
+notes:
+
+* Contracts v1 are accepted.
+* Governance baseline is being finalized.
+* Merge Gate has not yet been passed.
+* Do not merge docs/spec-baseline-v1 until governance review is complete.
+
