@@ -57,11 +57,41 @@ Audit must be:
 * deterministic
 * structured
 * machine-readable
-* tamper-evident
+
+Audit must be:
+
+- append-only
+- immutable through the Audit API
+- chronological
+- deterministic
+- structured
+- machine-readable
+- correlated
+- designed for future tamper-evident storage
 
 Audit records are facts.
 
 They must never contain assumptions.
+
+## Audit Availability
+
+Mandatory pre-execution Audit events must be persisted before Tool execution begins.
+
+If a required pre-execution Audit event cannot be persisted:
+
+- Runtime fails closed
+- Dispatcher is not invoked
+- Tool execution does not begin
+- Transport operations do not begin
+
+A post-execution Audit persistence failure is a critical Runtime failure.
+
+It must:
+
+- be surfaced explicitly
+- preserve the Tool result internally when possible
+- never be silently ignored
+- never be reported as a completely successful audited execution
 
 ## Audit Event
 
@@ -89,19 +119,29 @@ Contracts v1 defines:
 ```text
 SESSION_STARTED
 SESSION_FINISHED
+SESSION_CANCELLED
+SESSION_EXPIRED
 
 REQUEST_RECEIVED
 REQUEST_VALIDATED
+REQUEST_DENIED
 
 POLICY_EVALUATED
 
 APPROVAL_REQUESTED
 APPROVAL_GRANTED
 APPROVAL_REJECTED
+APPROVAL_EXPIRED
+
+DRY_RUN_STARTED
+DRY_RUN_FINISHED
+DRY_RUN_FAILED
 
 TOOL_STARTED
 TOOL_FINISHED
 TOOL_FAILED
+
+OUTPUT_VALIDATION_FAILED
 
 TIMEOUT
 CANCELLED
