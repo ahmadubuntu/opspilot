@@ -41,6 +41,7 @@ A Tool never:
 Every Tool exposes a `ToolDefinition` containing:
 
 - unique qualified name
+- owning Plugin identifier
 - human-readable description
 - typed input model
 - typed output model
@@ -48,6 +49,8 @@ Every Tool exposes a `ToolDefinition` containing:
 - required permissions
 - mutation indicator
 - dry-run support indicator
+- idempotency indicator
+- retry-safety indicator
 - execution timeout
 
 Tool names use a qualified namespace:
@@ -106,6 +109,25 @@ Risk metadata informs Policy but does not replace Policy evaluation.
 
 Mutation Rules
 
+## Idempotency and Retry Safety
+
+Every Tool declares:
+
+- `idempotent`
+- `retry_safe`
+
+`idempotent` describes whether executing the same operation more than once produces the same intended state.
+
+`retry_safe` describes whether Runtime may retry the Tool after a clearly classified retryable failure.
+
+Rules:
+
+- Runtime never infers idempotency from Tool name.
+- Runtime never infers retry safety from risk class alone.
+- `mutates=true` defaults to `retry_safe=false`.
+- An ambiguous execution state always prevents automatic retry.
+- A Tool may be idempotent but not retry-safe when completion cannot be determined reliably. 
+
 Mutating Tools must:
 
 declare mutates=true
@@ -160,4 +182,29 @@ Tools cannot be dispatched without registration
 Tool failures are normalized into structured errors
 tests cover registration, validation, execution, and failure behavior
 
+
+- Tool ownership is explicit and validated against the Plugin manifest
+- idempotency metadata is available to Runtime
+- retry-safety metadata is available to Runtime
+- ambiguous execution state prevents automatic retry
 ---
+
+## Tool Ownership
+
+Every Tool explicitly declares its owning Plugin identifier.
+
+Example:
+
+```text
+plugin_id: filesystem
+name: filesystem.read_file
+
+Runtime validates that:
+
+definition.plugin_id == manifest.id
+
+The qualified Tool name must begin with:
+
+<plugin_id>.
+
+Tool ownership must not be inferred only from string parsing.
