@@ -178,6 +178,14 @@ sentry
 ```
 
 ## Tool Ownership
+Every Tool definition explicitly declares `plugin_id`.
+
+Runtime validates that:
+
+```text
+tool.definition.plugin_id == plugin.manifest.id
+
+A mismatch causes Plugin registration to fail.
 
 A Plugin exposes immutable collections of Tool instances.
 
@@ -261,7 +269,7 @@ Manifest Validated
 Compatibility Checked
     |
     v
-Permissions Evaluated
+Permission Admission Checked
     |
     v
 Plugin Loaded
@@ -285,6 +293,22 @@ Unloaded
 A Plugin that fails any lifecycle stage must not become available.
 
 Partial Tool registration must be rolled back.
+
+## Permission Admission
+
+Permission admission occurs during Plugin loading.
+
+It verifies that:
+
+- requested permissions are known
+- requested permissions are supported
+- project configuration permits loading the Plugin
+- every exposed Tool uses declared permissions
+- undeclared capabilities are rejected
+
+Permission admission is not per-request authorization.
+
+Every Tool request is still evaluated independently by Policy before execution.
 
 ## Initialization
 
