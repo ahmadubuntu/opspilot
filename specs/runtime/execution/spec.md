@@ -312,6 +312,26 @@ If dry-run is required but unsupported, execution is denied.
 
 A dry-run result never grants implicit authorization.
 
+Runtime enforces one primary Policy transition at a time.
+
+An operation requiring both preview and Approval follows:
+
+```text
+REQUIRE_DRY_RUN
+    |
+    v
+Dry-run
+    |
+    v
+Policy re-evaluation
+    |
+    v
+REQUIRE_APPROVAL
+
+The first dry-run decision does not authorize mutation.
+
+
+
 ## Dispatcher
 
 Dispatcher is a thin Runtime service.
@@ -496,6 +516,15 @@ Retry decisions belong to Runtime.
 
 Tools and Transports do not retry independently.
 
+Runtime uses explicit Tool metadata:
+
+- `idempotent`
+- `retry_safe`
+
+Runtime never infers retry behavior from Tool name.
+
+An ambiguous execution state always prevents automatic retry.
+
 ## Idempotency
 
 Tools declare whether their behavior is idempotent or retry-safe.
@@ -561,8 +590,21 @@ Minimum event sequence for an allowed read:
 REQUEST_RECEIVED
 REQUEST_VALIDATED
 POLICY_EVALUATED
+REQUEST_DENIED
+APPROVAL_REQUESTED
+APPROVAL_GRANTED
+APPROVAL_REJECTED
+APPROVAL_EXPIRED
+DRY_RUN_STARTED
+DRY_RUN_FINISHED
+DRY_RUN_FAILED
 TOOL_STARTED
 TOOL_FINISHED
+TOOL_FAILED
+OUTPUT_VALIDATION_FAILED
+TIMEOUT
+CANCELLED
+RUNTIME_ERROR
 ```
 
 Minimum event sequence for denial:
