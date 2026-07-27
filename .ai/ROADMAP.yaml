@@ -1,0 +1,39 @@
+phase_1:
+
+  - runtime
+
+  - plugin_loader
+
+  - filesystem
+
+phase_2:
+
+  - terminal
+
+  - git
+
+  - docker
+
+phase_3:
+
+  - kubernetes
+
+  - kafka
+
+  - postgres
+
+phase_4:
+
+  - redis
+
+  - sentry
+
+  - elasticsearch
+
+phase_5:
+
+  - remote_agents
+
+  - workflows
+
+  - multi_agent

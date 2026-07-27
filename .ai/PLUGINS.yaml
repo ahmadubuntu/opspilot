@@ -1,0 +1,17 @@
+Plugin Requirements
+
+Every plugin:
+
+must expose metadata
+
+must expose version
+
+must implement health()
+
+must implement capabilities()
+
+must implement tools()
+
+must provide tests
+
+must have README

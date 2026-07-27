@@ -1,0 +1,35 @@
+project: OpsPilot
+
+version: 0.1.0-alpha
+
+phase: bootstrap
+
+runtime: bootstrap
+
+plugin_loader: not_started
+
+filesystem_plugin: not_started
+
+terminal_plugin: not_started
+
+git_plugin: not_started
+
+docker_plugin: not_started
+
+completed:
+
+  - repository
+
+  - docker
+
+  - open_webui
+
+  - lm_studio
+
+  - python_package
+
+  - cli
+
+next:
+
+  - python_runtime

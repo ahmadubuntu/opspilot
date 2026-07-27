@@ -1,0 +1,10 @@
+id: filesystem
+name: Filesystem
+version: 0.1.0
+api_version: v1
+description: Safe read-only workspace filesystem tools.
+permissions:
+  - workspace.read
+required_transports:
+  - local
+enabled: true
