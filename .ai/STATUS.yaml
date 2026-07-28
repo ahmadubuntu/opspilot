@@ -10,7 +10,7 @@ repository:
 architecture:
   baseline: v1
   status: accepted
-  merge_ready: false
+  merge_ready: true
 
 contracts:
   specifications:
@@ -46,10 +46,10 @@ vertical_slice:
     - filesystem.stat
 
 validation:
-  pytest: unknown
-  ruff: unknown
-  mypy: unknown
-  git_diff_check: unknown
+  pytest: passing
+  ruff: passing
+  mypy: passing
+  git_diff_check: passing
 
 notes:
   - Do not implement filesystem mutation in the first vertical slice.
