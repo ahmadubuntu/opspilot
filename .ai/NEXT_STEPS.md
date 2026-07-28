@@ -99,3 +99,60 @@ Supported Tools:
 
 Mutating filesystem operations remain outside the first implementation slice.
 
+
+# Next Steps
+
+## Current Work
+
+Complete the final Merge Gate for `docs/spec-baseline-v1`.
+
+## Before Merge
+
+Run:
+
+```bash
+uv run pytest
+uv run ruff check .
+uv run mypy src
+git diff --check
+git status
+
+
+Update .ai/STATUS.yaml with the results.
+
+Merge
+
+Merge docs/spec-baseline-v1 into main using a non-fast-forward merge.
+
+Create the architecture-v1 annotated tag.
+
+Next Branch
+chore/development-infrastructure-v1
+Sprint 0
+
+Implement only:
+
+pre-commit
+GitHub Actions
+Makefile
+EditorConfig
+coverage reporting without an enforced threshold
+Phase 2 Branch
+
+After Sprint 0 is merged:
+
+feature/runtime-kernel-v1
+Phase 2 Objective
+
+Implement the Runtime contracts required for the read-only filesystem vertical slice.
+
+Initial Vertical Slice
+CLI
+  -> Runtime Execution Kernel
+  -> Session
+  -> Policy
+  -> Audit
+  -> Dispatcher
+  -> Filesystem Tool
+  -> Workspace
+  -> LocalTransport

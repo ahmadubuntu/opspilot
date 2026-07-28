@@ -1,105 +1,57 @@
 project:
-name: OpsPilot
-version: 0.1.0
-phase: "Phase 1.5 - Architecture Governance"
+  name: OpsPilot
+  version: 0.1.0
+  phase: "Phase 1.5 - Architecture Governance"
 
 repository:
-default_branch: main
-current_work_branch: docs/spec-baseline-v1
+  default_branch: main
+  current_work_branch: docs/spec-baseline-v1
 
 architecture:
-status: accepted
+  baseline: v1
+  status: accepted
+  merge_ready: true
 
 contracts:
-version: v1
-
-specifications:
-
-```
-tool:
-  status: accepted
-
-plugin:
-  status: accepted
-
-policy:
-  status: accepted
-
-approval:
-  status: accepted
-
-audit:
-  status: accepted
-
-workspace:
-  status: accepted
-
-transport:
-  status: accepted
-
-session:
-  status: accepted
-
-runtime_execution:
-  status: accepted
-```
+  specifications:
+    tool: accepted
+    plugin: accepted
+    policy: accepted
+    approval: accepted
+    audit: accepted
+    workspace: accepted
+    transport: accepted
+    session: accepted
+    runtime_execution: accepted
 
 governance:
+  spec_index: complete
+  traceability: complete
+  adr_review: complete
+  architecture_summary: complete
+  contribution_rules: complete
+  final_review: pending
 
-spec_index: true
+implementation:
+  status: partial
+  next_phase: "Phase 2 - Runtime Kernel"
+  next_branch: feature/runtime-kernel-v1
 
-traceability: true
-
-adr_index: true
-
-architecture_reviews: true
-
-current_vertical_slice:
-
-implemented: false
-
-scope:
-
-```
-- filesystem.read_file
-- filesystem.list_directory
-- filesystem.stat
-```
-
-phase2:
-
-status: not_started
-
-first_targets:
-
-```
-- core/errors.py
-- core/models.py
-- runtime/context.py
-- runtime/dispatcher.py
-- runtime/kernel.py
-```
+vertical_slice:
+  name: filesystem-read
+  implemented: false
+  tools:
+    - filesystem.read_file
+    - filesystem.list_directory
+    - filesystem.stat
 
 validation:
-
-pytest: passing
-
-ruff: passing
-
-mypy: passing
-
-next_branch:
-
-feature/runtime-kernel-v1
-
-next_milestone:
-
-Runtime Execution Kernel
+  pytest: passing
+  ruff: passing
+  mypy: passing
+  git_diff_check: passing
 
 notes:
-
-* Contracts v1 are accepted.
-* Governance baseline is being finalized.
-* Merge Gate has not yet been passed.
-* Do not merge docs/spec-baseline-v1 until governance review is complete.
-
+  - Do not implement filesystem mutation in the first vertical slice.
+  - MCP remains an adapter and is not part of Phase 2.
+  - No numbered duplicate files are allowed.
